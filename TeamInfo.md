@@ -4,16 +4,16 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-| TeamID      |        Team-000        |
-| TeamName    |         sample         |
-| Captain     |       Abdu Alawini     |
-| Captain     |  alawini@illinois.edu  |
-| Member1     |        Kevin Pei       |
-| Member1     |   kevin2@illinois.edu  |
-| Member2     |                        |
-| Member2     |                        |
-| Member3     |                        |
-| Member3     |                        |
+| TeamID      |        Team-666        |
+| TeamName    |         666666         |
+| Captain     |       Yiqing Huang     |
+| Captain     |   yh50@illinois.edu    |
+| Member1     |        Yilun Chen      |
+| Member1     |   yilunc3@illinois.edu |
+| Member2     |        Yiran Wang      |
+| Member2     |  yiranw8@illinois.edu  |
+| Member3     |        Ziyang Zheng    |
+| Member3     |ziyangz5@illinois.edu   |
 
 ## Project Information
 
