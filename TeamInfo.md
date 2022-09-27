@@ -4,7 +4,7 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-| TeamID      |        Team-666        |
+| TeamID      |        Team-066        |
 | TeamName    |         666666         |
 | Captain     |       Yiqing Huang     |
 | Captain     |   yh50@illinois.edu    |
