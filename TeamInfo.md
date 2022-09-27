@@ -19,10 +19,11 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-|  Title      |       ProjectTitle     |
+|  Title      | Stock Prediction with Emotions|
 | System URL  |      link_to_system    |
 | Video Link  |      link_to_video     |
 
 ## Project Summary
 
-This is a summary of the project!
+Our team aims to design a website that provides both the prediction for the stock market and the relationship between companies and people’s sentiments towards them. Users can register and receive updates about the stock or companies they follow.
+
