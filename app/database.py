@@ -30,21 +30,23 @@ def fetch_todo() -> dict:
     return todo_list
 
 
-# def update_task_entry(task_id: int, text: str) -> None:
-#     """Updates task description based on given `task_id`
+def update_task_entry(task_id: str, text: str) -> None:
+    """Updates task description based on given `task_id`
 
-#     Args:
-#         task_id (int): Targeted task_id
-#         text (str): Updated description
+    Args:
+        task_id (int): Targeted task_id
+        text (str): Updated description
 
-#     Returns:
-#         None
-#     """
-
-#     conn = db.connect()
-#     query = 'Update tasks set task = "{}" where id = {};'.format(text, task_id)
-#     conn.execute(query)
-#     conn.close()
+    Returns:
+        None
+    """
+    print(1)
+    conn = db.connect()
+    query = 'Update Company set CompanyName = "{}" where CompanyID = "{}";'.format(text, task_id)
+    print(text)
+    print(task_id)
+    conn.execute(query)
+    conn.close()
 
 
 def update_status_entry(task_id: str, text: str) -> None:
@@ -59,16 +61,14 @@ def update_status_entry(task_id: str, text: str) -> None:
     """
 
     conn = db.connect()
-    print("connected")
-    print(text)
-    print(task_id)
     query = 'Update Company set Status = "{}" where CompanyID = "{}";'.format(text, task_id)
     conn.execute(query)
-    print("done")
     conn.close()
 
 
+
 def insert_new_task(id: str, name: str) ->  str:
+
     """Insert new task to todo table.
 
     Args:
@@ -78,11 +78,13 @@ def insert_new_task(id: str, name: str) ->  str:
     """
 
     conn = db.connect()
+
     last_id_q = conn.execute("Select LAST_INSERT_ID();")
     last_id_q = [x for x in last_id_q]
     last_id = last_id_q[0][0]
     query = 'Insert Into Company (id_num, CompanyID, CompanyName, Status, Followers, CurrentStockPrice, CurrentGrowthRate, PredictedStockPrice, PredictedGrowthRate) VALUES ({}, "{}", "{}", "Follow", 0, 0, 0, 0, 0);'.format(
         int(last_id) + 1, id, name)
+
     conn.execute(query)
     query_results = conn.execute("Select LAST_INSERT_ID();")
     query_results = [x for x in query_results]
@@ -91,9 +93,10 @@ def insert_new_task(id: str, name: str) ->  str:
     return id
 
 
-# def remove_task_by_id(task_id: int) -> None:
-#     """ remove entries based on task ID """
-#     conn = db.connect()
-#     query = 'Delete From tasks where id={};'.format(task_id)
-#     conn.execute(query)
-#     conn.close()
+def remove_task_by_id(task_id: str) -> None:
+    """ remove entries based on task ID """
+
+    conn = db.connect()
+    query = 'Delete From Company where CompanyID="{}";'.format(task_id)
+    conn.execute(query)
+    conn.close()

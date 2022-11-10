@@ -52,6 +52,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/delete/' + remove.data('source'),
+            
             success: function (res) {
                 console.log(res.response)
                 location.reload();
@@ -63,6 +64,7 @@ $(document).ready(function () {
     });
 
     $('.state').click(function () {
+
         const state = $(this);
         const tID = state.data('source');
         new_state = "";
@@ -70,6 +72,7 @@ $(document).ready(function () {
             new_state = "Unfollow";
         } else if (state.text() === "Unfollow") {
             new_state = "Follow";
+
         } 
 
         $.ajax({
