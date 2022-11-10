@@ -16,30 +16,33 @@ from app import database as db_helper
 #     return jsonify(result)
 
 
-# @app.route("/edit/<int:task_id>", methods=['POST'])
-# def update(task_id):
-#     """ recieved post requests for entry updates """
+@app.route("/edit/<string:task_id>", methods=['POST'])
+def update(task_id):
+    """ recieved post requests for entry updates """
+    print("called route")
+    data = request.get_json()
 
-#     data = request.get_json()
+    try:
+        if "status" in data:
+            db_helper.update_status_entry(task_id, data["status"])
+            result = {'success': True, 'response': 'Status Updated'}
+            print("success")
+        elif "description" in data:
+            db_helper.update_task_entry(task_id, data["description"])
+            result = {'success': True, 'response': 'Task Updated'}
+        else:
+            result = {'success': True, 'response': 'Nothing Updated'}
+    except:
+        result = {'success': False, 'response': 'Something went wrong'}
 
-#     try:
-#         if "status" in data:
-#             db_helper.update_status_entry(task_id, data["status"])
-#             result = {'success': True, 'response': 'Status Updated'}
-#         elif "description" in data:
-#             db_helper.update_task_entry(task_id, data["description"])
-#             result = {'success': True, 'response': 'Task Updated'}
-#         else:
-#             result = {'success': True, 'response': 'Nothing Updated'}
-#     except:
-#         result = {'success': False, 'response': 'Something went wrong'}
+    return jsonify(result)
 
-#     return jsonify(result)
 
 
 @app.route("/create", methods=['POST'])
 def create():
     """ recieves post requests to add new task """
+    print("called create")
     data = request.get_json()
     db_helper.insert_new_task(data['description'])
     result = {'success': True, 'response': 'Done'}
@@ -50,4 +53,5 @@ def create():
 def homepage():
     """ returns rendered homepage """
     items = db_helper.fetch_todo()
+    print('s')
     return render_template("index.html", items=items)

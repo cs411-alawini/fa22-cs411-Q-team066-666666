@@ -21,9 +21,9 @@ def fetch_todo() -> dict:
     todo_list = []
     for result in query_results:
         item = {
-            "id": result[0],
-            "task": result[1],
-            "status": result[2]
+            "id": result[1],
+            "task": result[2],
+            "status": result[3]
         }
         todo_list.append(item)
 
@@ -47,21 +47,25 @@ def fetch_todo() -> dict:
 #     conn.close()
 
 
-# def update_status_entry(task_id: int, text: str) -> None:
-#     """Updates task status based on given `task_id`
+def update_status_entry(task_id: str, text: str) -> None:
+    """Updates task status based on given `task_id`
 
-#     Args:
-#         task_id (int): Targeted task_id
-#         text (str): Updated status
+    Args:
+        task_id (int): Targeted task_id
+        text (str): Updated status
 
-#     Returns:
-#         None
-#     """
+    Returns:
+        None
+    """
 
-#     conn = db.connect()
-#     query = 'Update tasks set status = "{}" where id = {};'.format(text, task_id)
-#     conn.execute(query)
-#     conn.close()
+    conn = db.connect()
+    print("connected")
+    print(text)
+    print(task_id)
+    query = 'Update Company set Status = "{}" where CompanyID = "{}";'.format(text, task_id)
+    conn.execute(query)
+    print("done")
+    conn.close()
 
 
 def insert_new_task(text: str) ->  int:
@@ -79,7 +83,7 @@ def insert_new_task(text: str) ->  int:
     conn.execute(query)
     query_results = conn.execute("Select LAST_INSERT_ID();")
     query_results = [x for x in query_results]
-    task_id = query_results[0][0]
+    task_id = query_results[0][1]
     conn.close()
 
     return task_id

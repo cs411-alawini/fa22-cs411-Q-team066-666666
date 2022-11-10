@@ -59,16 +59,14 @@ $(document).ready(function () {
     });
 
     $('.state').click(function () {
-        const state = $(this)
-        const tID = state.data('source')
-        const new_state
-        if (state.text() === "In Progress") {
-            new_state = "Complete"
-        } else if (state.text() === "Complete") {
-            new_state = "Todo"
-        } else if (state.text() === "Todo") {
-            new_state = "In Progress"
-        }
+        const state = $(this);
+        const tID = state.data('source');
+        new_state = "";
+        if (state.text() === "Follow") {
+            new_state = "Unfollow";
+        } else if (state.text() === "Unfollow") {
+            new_state = "Follow";
+        } 
 
         $.ajax({
             type: 'POST',
