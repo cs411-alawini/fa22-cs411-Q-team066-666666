@@ -17,11 +17,11 @@ def init_connection_engine():
 
     # detect env local or gcp
     if os.environ.get('GAE_ENV') != 'standard':
-        # try:
-        variables = load(open("app.yaml"), Loader=Loader)
-        # except OSError as e:
-        #     print("Make sure you have the app.yaml file setup")
-        #     os.exit()
+        try:
+            variables = load(open("app.yaml"), Loader=Loader)
+        except OSError as e:
+            print("Make sure you have the app.yaml file setup")
+            os.exit()
 
         env_variables = variables['env_variables']
         try:
