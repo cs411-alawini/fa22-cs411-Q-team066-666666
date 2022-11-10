@@ -30,7 +30,7 @@ def fetch_todo() -> dict:
     return todo_list
 
 
-def update_task_entry(task_id: str, text: str) -> None:
+def update_task_entry(task_id: str, new_task_id: str, text: str) -> None:
     """Updates task description based on given `task_id`
 
     Args:
@@ -42,10 +42,12 @@ def update_task_entry(task_id: str, text: str) -> None:
     """
     print(1)
     conn = db.connect()
-    query = 'Update Company set CompanyName = "{}" where CompanyID = "{}";'.format(text, task_id)
+    query1 = 'Update Company set CompanyName = "{}" where CompanyID = "{}";'.format(text, task_id)
+    query2 = 'Update Company set CompanyID = "{}" where CompanyID = "{}";'.format(new_task_id, task_id)
     print(text)
     print(task_id)
-    conn.execute(query)
+    conn.execute(query1)
+    conn.execute(query2)
     conn.close()
 
 

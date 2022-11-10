@@ -43,11 +43,11 @@
             <div class="modal-body">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="task-form-display">Company ID</span>
-                    <input type="text" class="form-control-id" placeholder="" aria-label="company-id" aria-describedby="basic-addon1" id="company-id">
+                    <input type="text" class="form-control-id form-control" placeholder="" aria-label="company-id" aria-describedby="basic-addon1" id="company-id">
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="task-form-display">Company Name</span>
-                    <input type="text" class="form-control-name" placeholder="" aria-label="company-name" aria-describedby="basic-addon1" id="company-name">
+                    <input type="text" class="form-control-name form-control" placeholder="" aria-label="company-name" aria-describedby="basic-addon1" id="company-name">
                 </div>
             </div>
             <div class="modal-footer">
@@ -86,7 +86,7 @@
                     <td><button type="button" class="btn btn-outline-secondary btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
                 {%endif%}
                 
-                <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-content="{{item}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
+                <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-id="{{item.id}}" data-name="{{item.task}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
 
                 <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
             </tr>
