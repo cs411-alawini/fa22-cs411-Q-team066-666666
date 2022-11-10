@@ -28,6 +28,25 @@ $(document).ready(function () {
         }
     })
 
+    $('#submit-search').click(function () {
+        const tID = $('#comp-form-display').attr('taskID');
+        console.log($('#search-modal').find('.form-control').val())
+        $.ajax({
+            type: 'POST',
+            url:  '/search/',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify({
+                'text': $('#search-modal').find('.form-control').val()
+            }),
+            success: function (res) {
+                console.log(res.response)
+                location.reload();
+            },
+            error: function () {
+                console.log('Error');
+            }
+        });
+    });
 
     $('#submit-task').click(function () {
         const tID = $('#task-form-display').attr('taskID');

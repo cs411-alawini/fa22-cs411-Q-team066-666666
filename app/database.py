@@ -30,6 +30,27 @@ def fetch_todo() -> dict:
     return todo_list
 
 
+def search_list(text: str) -> dict:
+    """Reads all tasks listed in the todo table
+
+    Returns:
+        A list of dictionaries
+    """
+
+    conn = db.connect()
+    query_results = conn.execute('Select * from Company where CompanyName LIKE %s OR CompanyId LIkE %s ;', (text, text)).fetchall()
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "id": result[1],
+            "task": result[2],
+            "status": result[3]
+        }
+        todo_list.append(item)
+
+    return todo_list
+
 def update_task_entry(task_id: str, new_task_id: str, text: str) -> None:
     """Updates task description based on given `task_id`
 

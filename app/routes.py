@@ -53,6 +53,13 @@ def create():
     return jsonify(result)
 
 
+@app.route("/search", method=['POST'])
+def search_list():
+    """ returns rendered homepage """
+    data = request.get_json()
+    items = db_helper.search_list(data['text'])
+    return render_template("index.html", items=items)
+
 @app.route("/")
 def homepage():
     """ returns rendered homepage """
