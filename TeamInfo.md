@@ -5,7 +5,7 @@
 |   Info      |        Description     |
 | ----------- | ---------------------- |
 | TeamID      |        Team-066        |
-| TeamName    |         666666         |
+Company| TeamName    |         666666         |
 | Captain     |       Yiqing Huang     |
 | Captain     |   yh50@illinois.edu    |
 | Member1     |        Yilun Chen      |
