@@ -4,10 +4,10 @@ $(document).ready(function () {
     $('#task-modal').on('show.bs.modal', function (event) {
         const button = $(event.relatedTarget) // Button that triggered the modal
         const taskID = button.data('source') // Extract info from data-* attributes
-        const content = button.data('content') // Extract info from data-* attributes
+        const old_id = button.data('content') // Extract info from data-* attributes
 
         const modal = $(this)
-        if (taskID === 'New Task') {
+        if (taskID === 'New Company') {
             modal.find('.modal-title').text(taskID)
             $('#task-form-display').removeAttr('taskID')
         } else {
@@ -15,24 +15,28 @@ $(document).ready(function () {
             $('#task-form-display').attr('taskID', taskID)
         }
 
-        if (content) {
-            modal.find('.form-control').val(content);
+        if (old_id) {
+            modal.find('.form-control-name').val(old_id.task);
+            modal.find('.form-control-id').val(old_id.id)
         } else {
-            modal.find('.form-control').val('');
+            modal.find('.form-control-name').val('');
+            modal.find('.form-control-id').val('');
         }
     })
 
 
     $('#submit-task').click(function () {
         const tID = $('#task-form-display').attr('taskID');
-        console.log($('#task-modal').find('.form-control').val())
+        console.log($('#task-modal').find('.form-control-id').val())
         $.ajax({
             type: 'POST',
             url: tID ? '/edit/' + tID : '/create',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
-                'description': $('#task-modal').find('.form-control').val()
+                'id': $('#task-modal').find('.form-control-id').val(),
+                'name': $('#task-modal').find('.form-control-name').val()
             }),
+            
             success: function (res) {
                 console.log(res.response)
                 location.reload();
