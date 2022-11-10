@@ -68,7 +68,7 @@ def update_status_entry(task_id: str, text: str) -> None:
     conn.close()
 
 
-def insert_new_task(text: str) ->  int:
+def insert_new_task(id: str, name: str) ->  str:
     """Insert new task to todo table.
 
     Args:
@@ -78,15 +78,17 @@ def insert_new_task(text: str) ->  int:
     """
 
     conn = db.connect()
-    query = 'Insert Into tasks (task, status) VALUES ("{}", "{}");'.format(
-        text, "Todo")
+    last_id_q = conn.execute("Select LAST_INSERT_ID();")
+    last_id_q = [x for x in last_id_q]
+    last_id = last_id_q[0][0]
+    query = 'Insert Into Company (id_num, CompanyID, CompanyName, Status, Followers, CurrentStockPrice, CurrentGrowthRate, PredictedStockPrice, PredictedGrowthRate) VALUES ({}, "{}", "{}", "Follow", 0, 0, 0, 0, 0);'.format(
+        int(last_id) + 1, id, name)
     conn.execute(query)
     query_results = conn.execute("Select LAST_INSERT_ID();")
     query_results = [x for x in query_results]
-    task_id = query_results[0][1]
     conn.close()
 
-    return task_id
+    return id
 
 
 # def remove_task_by_id(task_id: int) -> None:

@@ -44,7 +44,8 @@ def create():
     """ recieves post requests to add new task """
     print("called create")
     data = request.get_json()
-    db_helper.insert_new_task(data['description'])
+    print(data['id'])
+    db_helper.insert_new_task(data['id'], data['name'])
     result = {'success': True, 'response': 'Done'}
     return jsonify(result)
 

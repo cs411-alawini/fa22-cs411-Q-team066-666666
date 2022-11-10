@@ -28,7 +28,7 @@
         
         <!-- Button trigger modal -->
         <div style="text-align: right;">
-        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Task">Add Company</button>
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Company">Add Company</button>
         </div>
 
         
@@ -36,19 +36,23 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="Label">Add a task</h5>
+                <h5 class="modal-title" id="Label">Add a Company</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="task-form-display">Task</span>
-                    <input type="text" class="form-control" placeholder="Description of task" aria-label="task-name" aria-describedby="basic-addon1">
+                    <span class="input-group-text" id="task-form-display">Company ID</span>
+                    <input type="text" class="form-control-id" placeholder="" aria-label="company-id" aria-describedby="basic-addon1" id="company-id">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="task-form-display">Company Name</span>
+                    <input type="text" class="form-control-name" placeholder="" aria-label="company-name" aria-describedby="basic-addon1" id="company-name">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="submit-task" type="button" class="btn btn-primary">Save changes</button>
+                <button id="submit-task" type="button" class="btn btn-primary">Save</button>
             </div>
             </div>
         </div>
@@ -82,7 +86,7 @@
                     <td><button type="button" class="btn btn-outline-secondary btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
                 {%endif%}
                 
-                <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-content="{{item.task}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
+                <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-content="{{item}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
 
                 <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
             </tr>
