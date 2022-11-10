@@ -48,6 +48,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/delete/' + remove.data('source'),
+            
             success: function (res) {
                 console.log(res.response)
                 location.reload();
@@ -60,15 +61,13 @@ $(document).ready(function () {
 
     $('.state').click(function () {
         const state = $(this)
-        const tID = state.data('source')
-        const new_state
-        if (state.text() === "In Progress") {
-            new_state = "Complete"
-        } else if (state.text() === "Complete") {
-            new_state = "Todo"
-        } else if (state.text() === "Todo") {
-            new_state = "In Progress"
-        }
+        const tID = state.data('id_num')
+        const new_state = ''
+        if (state.text() === "Unfollow") {
+            new_state = "Follow"
+        } else if (state.text() === "Follow") {
+            new_state = "Unfollow"
+        } 
 
         $.ajax({
             type: 'POST',
