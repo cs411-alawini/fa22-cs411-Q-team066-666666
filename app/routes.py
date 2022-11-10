@@ -32,6 +32,7 @@ def update(task_id):
         elif "description" in data:
             db_helper.update_task_entry(task_id, data["description"])
             result = {'success': True, 'response': 'Task Updated'}
+            print(task_id)
         else:
             result = {'success': True, 'response': 'Nothing Updated'}
     except:
@@ -55,5 +56,4 @@ def create():
 def homepage():
     """ returns rendered homepage """
     items = db_helper.fetch_todo()
-    print('s')
     return render_template("index.html", items=items)

@@ -30,21 +30,23 @@ def fetch_todo() -> dict:
     return todo_list
 
 
-# def update_task_entry(task_id: int, text: str) -> None:
-#     """Updates task description based on given `task_id`
+def update_task_entry(task_id: str, text: str) -> None:
+    """Updates task description based on given `task_id`
 
-#     Args:
-#         task_id (int): Targeted task_id
-#         text (str): Updated description
+    Args:
+        task_id (int): Targeted task_id
+        text (str): Updated description
 
-#     Returns:
-#         None
-#     """
-
-#     conn = db.connect()
-#     query = 'Update tasks set task = "{}" where id = {};'.format(text, task_id)
-#     conn.execute(query)
-#     conn.close()
+    Returns:
+        None
+    """
+    print(1)
+    conn = db.connect()
+    query = 'Update Company set CompanyName = "{}" where CompanyID = "{}";'.format(text, task_id)
+    print(text)
+    print(task_id)
+    conn.execute(query)
+    conn.close()
 
 
 def update_status_entry(task_id: str, text: str) -> None:
@@ -59,12 +61,8 @@ def update_status_entry(task_id: str, text: str) -> None:
     """
 
     conn = db.connect()
-    print("connected")
-    print(text)
-    print(task_id)
     query = 'Update Company set Status = "{}" where CompanyID = "{}";'.format(text, task_id)
     conn.execute(query)
-    print("done")
     conn.close()
 
 
@@ -91,9 +89,8 @@ def insert_new_task(text: str) ->  str:
 
 def remove_task_by_id(task_id: str) -> None:
     """ remove entries based on task ID """
-    # print(2)
+
     conn = db.connect()
     query = 'Delete From Company where CompanyID="{}";'.format(task_id)
-    print(task_id)
     conn.execute(query)
     conn.close()
