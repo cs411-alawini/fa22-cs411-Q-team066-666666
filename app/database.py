@@ -47,21 +47,25 @@ def fetch_todo() -> dict:
 #     conn.close()
 
 
-# def update_status_entry(task_id: int, text: str) -> None:
-#     """Updates task status based on given `task_id`
+def update_status_entry(task_id: str, text: str) -> None:
+    """Updates task status based on given `task_id`
 
-#     Args:
-#         task_id (int): Targeted task_id
-#         text (str): Updated status
+    Args:
+        task_id (int): Targeted task_id
+        text (str): Updated status
 
-#     Returns:
-#         None
-#     """
+    Returns:
+        None
+    """
 
-#     conn = db.connect()
-#     query = 'Update tasks set status = "{}" where id = {};'.format(text, task_id)
-#     conn.execute(query)
-#     conn.close()
+    conn = db.connect()
+    print("connected")
+    print(text)
+    print(task_id)
+    query = 'Update Company set Status = "{}" where CompanyID = "{}";'.format(text, task_id)
+    conn.execute(query)
+    print("done")
+    conn.close()
 
 
 def insert_new_task(text: str) ->  str:

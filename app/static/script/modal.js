@@ -60,13 +60,15 @@ $(document).ready(function () {
     });
 
     $('.state').click(function () {
-        const state = $(this)
-        const tID = state.data('id_num')
-        const new_state = ''
-        if (state.text() === "Unfollow") {
-            new_state = "Follow"
-        } else if (state.text() === "Follow") {
-            new_state = "Unfollow"
+
+        const state = $(this);
+        const tID = state.data('source');
+        new_state = "";
+        if (state.text() === "Follow") {
+            new_state = "Unfollow";
+        } else if (state.text() === "Unfollow") {
+            new_state = "Follow";
+
         } 
 
         $.ajax({
