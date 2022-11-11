@@ -41,7 +41,7 @@ def search_list(text: str) -> None:
     # query_results = conn.execute('Select * from Company where CompanyName LIKE  "%{}%" OR CompanyID LIkE  "%{}%" ;'.format(text, text)).fetchall()
     # query = 'Select * from Company where CompanyName LIKE "%%%s%%" OR CompanyID LIkE "%%%s%%"' % (text,text)
     # print(query)
-    query_results = conn.execute('Select * from Company where CompanyID LIKE %s', ('%' + text + '%',)).fetchall()
+    query_results = conn.execute('Select * from Company where CompanyName LIKE %s OR CompanyID LIKE %s LIMIT 10', ('%' + text + '%','%' + text + '%')).fetchall()
     # print(query_results)
     conn.close()
     todo_list = []

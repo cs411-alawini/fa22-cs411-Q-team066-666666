@@ -59,9 +59,9 @@ def search_comp():
     comp = db_helper.search_list('AAP')
     if request.method == 'POST':
         data = request.get_json()
-        print(data['text'])
+        # print(data['text'])
         comp = db_helper.search_list(data['text'])
-        print(comp)
+        # print(comp)
     # if request.method == 'GET':
     # return render_template("search.html", items=comp)
     result = {'success': True, 'response': 'Done'}
@@ -72,9 +72,9 @@ def search_page(comp_id):
     """ returns rendered homepage """
     # req = request.get_json()
     # print(req)
-    print(comp_id)
+    # print(comp_id)
     data = eval(comp_id)
-    print(data)
+    # print(data)
     # items = db_helper.fetch_todo()
     # print(items)
     return render_template("search.html", items=data)
