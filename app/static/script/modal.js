@@ -31,16 +31,17 @@ $(document).ready(function () {
     $('#submit-search').click(function () {
         const tID = $('#comp-form-display').attr('taskID');
         console.log($('#search-modal').find('.form-control').val())
-        $.ajax({
-            type: 'POST',
-            url:  '/search',
-            contentType: 'application/json;charset=UTF-8',
-            data: JSON.stringify({
-                'text': $('#search-modal').find('.form-control').val()
-            }),
+        location.replace('/search_page/' +$('#search-modal').find('.form-control').val())
+        // $.ajax({
+        //     type: 'POST',
+        //     url:  '/search',
+        //     contentType: 'application/json;charset=UTF-8',
+        //     data: JSON.stringify({
+        //         'text': $('#search-modal').find('.form-control').val()
+        //     }),
             
-            success: function (res) {
-                location.replace('/search_page/' +JSON.stringify(res))
+        //     success: function (res) {
+        //         location.replace('/search_page/' +JSON.stringify(res))
                 // $.ajax({
                 //     type: "GET",
                 //     url: '/search_page/' +JSON.stringify(res[0]),
@@ -62,13 +63,13 @@ $(document).ready(function () {
                 //         console.log('inner Error');
                 //     }
                 // });
-                console.log(res.response)
-                // location.replace("./search");
-            },
-            error: function () {
-                console.log('Error');
-            }
-        });
+        //         console.log(res.response)
+        //         // location.replace("./search");
+        //     },
+        //     error: function () {
+        //         console.log('Error');
+        //     }
+        // });
     });
 
     $('#submit-task').click(function () {
