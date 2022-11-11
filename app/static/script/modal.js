@@ -33,14 +33,37 @@ $(document).ready(function () {
         console.log($('#search-modal').find('.form-control').val())
         $.ajax({
             type: 'POST',
-            url:  '/search/',
+            url:  '/search',
             contentType: 'application/json;charset=UTF-8',
             data: JSON.stringify({
                 'text': $('#search-modal').find('.form-control').val()
             }),
+            
             success: function (res) {
+                location.replace('/search_page/' +JSON.stringify(res))
+                // $.ajax({
+                //     type: "GET",
+                //     url: '/search_page/' +JSON.stringify(res[0]),
+                //     success: function (result) {
+                //       console.log(result);
+                      
+                //     },
+                //   });
+                // $.ajax({
+                //     type: 'POST',
+                //     url:  '/search_page',
+                //     contentType: 'application/json;charset=UTF-8',
+                //     data: JSON.stringify(res[0]),
+                //     success: function (res) {
+                //         // console.log(res.response)
+                //         // location.replace("./search");
+                //     },
+                //     error: function () {
+                //         console.log('inner Error');
+                //     }
+                // });
                 console.log(res.response)
-                location.reload();
+                // location.replace("./search");
             },
             error: function () {
                 console.log('Error');

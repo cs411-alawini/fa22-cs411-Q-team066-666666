@@ -30,7 +30,7 @@ def fetch_todo() -> dict:
     return todo_list
 
 
-def search_list(text: str) -> dict:
+def search_list(text: str) -> None:
     """Reads all tasks listed in the todo table
 
     Returns:
@@ -38,7 +38,11 @@ def search_list(text: str) -> dict:
     """
 
     conn = db.connect()
-    query_results = conn.execute('Select * from Company where CompanyName LIKE %s OR CompanyId LIkE %s ;', (text, text)).fetchall()
+    # query_results = conn.execute('Select * from Company where CompanyName LIKE  "%{}%" OR CompanyID LIkE  "%{}%" ;'.format(text, text)).fetchall()
+    # query = 'Select * from Company where CompanyName LIKE "%%%s%%" OR CompanyID LIkE "%%%s%%"' % (text,text)
+    # print(query)
+    query_results = conn.execute('Select * from Company where CompanyID LIKE %s', ('%' + text + '%',)).fetchall()
+    # print(query_results)
     conn.close()
     todo_list = []
     for result in query_results:
@@ -48,7 +52,7 @@ def search_list(text: str) -> dict:
             "status": result[3]
         }
         todo_list.append(item)
-
+    print(todo_list)
     return todo_list
 
 def update_task_entry(task_id: str, new_task_id: str, text: str) -> None:
