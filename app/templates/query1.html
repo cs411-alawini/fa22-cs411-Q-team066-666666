@@ -19,11 +19,14 @@
     <body>
 
     <main role="main" class="container extra-bottom">
-        <h1 class="mt-5">Search Result</h1>
-        <div style="text-align: left;">
-          <button id="home" type="button" class="btn btn-primary">Back</button>
-          </div>
-      </main>
+      <h1 class="mt-5">Company Stock App</h1>
+      
+      <p><mark>Find the top 15 users holding the highest total worth of all stock under the current price. </mark></p>
+      <div style="text-align: left;">
+        <button id="home" type="button" class="btn btn-primary">Back</button>
+        </div>
+    </main>
+    
 
     <div class="container">    
         
@@ -91,11 +94,11 @@
     <table class="table">
         <thead>
         <tr>
-            <th class="task-id">CompanyId</th>
-            <th class="task">Company Name</th>
-            <th class="status">Status</th>
+            <th class="task-id">UserId</th>
+            <th class="task">Sum of Stocks</th>
+            <!-- <th class="status">Status</th>
             <th class="update">Edit</th>
-            <th class="update">Remove</th>
+            <th class="update">Remove</th> -->
         </tr>
         </thead>
 
@@ -104,7 +107,7 @@
             <tr>
                 <td>{{item.id}}</td>
                 <td>{{item.task}}</td>
-
+<!-- 
                 {% if item.status == "Follow" %}
                     <td><button type="button" class="btn btn-outline-warning btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
                 {%endif%}
@@ -114,7 +117,7 @@
                 
                 <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-id="{{item.id}}" data-name="{{item.task}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
 
-                <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+                <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td> -->
             </tr>
         {% endfor %}
         
