@@ -27,6 +27,11 @@ $(document).ready(function () {
             modal.find('.form-control-id').val('');
         }
     })
+    
+    $('#home').click(function () {
+        console.log("home");
+        location.replace('/');
+    });
 
     $('#submit-search').click(function () {
         const tID = $('#comp-form-display').attr('taskID');
