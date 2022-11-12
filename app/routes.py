@@ -88,6 +88,24 @@ def search_page(comp_id):
   
     return render_template("search.html", items=comp)
 
+@app.route("/query_page")
+def query_page():
+    """ returns rendered homepage """
+
+    comp = db_helper.query_list()
+
+  
+    return render_template("query1.html", items=comp)
+
+@app.route("/query_page2")
+def query_page2():
+    """ returns rendered homepage """
+
+    comp = db_helper.query_list2()
+
+  
+    return render_template("query2.html", items=comp)
+
 
 @app.route("/")
 def homepage():

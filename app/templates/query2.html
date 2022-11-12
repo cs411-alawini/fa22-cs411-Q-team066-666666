@@ -20,7 +20,7 @@
 
     <main role="main" class="container extra-bottom">
       <h1 class="mt-5">Company Stock App</h1>
-      <p><mark>Follow your Company!</mark></p>
+      <p><mark>Find the top 15 companies whose stocks were sold for the highest total values, and find out how many followers these companies have. </mark></p>
     </main>
     
 
@@ -34,28 +34,6 @@
         <div style="text-align: right;">
         <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#search-modal" data-source="New Task">Search Company</button>
         </div>
-
-        <div style="text-align: left;">
-            <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#query-modal" data-source="New Task">Query</button>
-            </div>
-    
-            <div class="modal fade" id="query-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="Label">Run Query</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-        
-                
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="submit-query" type="button" class="btn btn-primary">Query1</button>
-                        <button id="submit-query2" type="button" class="btn btn-primary">Query2</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
 
         <div class="modal fade" id="search-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
             <div class="modal-dialog">
@@ -112,11 +90,11 @@
     <table class="table">
         <thead>
         <tr>
-            <th class="task-id">CompanyId</th>
-            <th class="task">Company Name</th>
-            <th class="status">Status</th>
-            <th class="update">Edit</th>
-            <th class="update">Remove</th>
+            <th class="task-id">CompanyName</th>
+            <th class="task">Sum of Stocks</th>
+            <th class="status">Followers</th>
+            <!-- <th class="update">Edit</th>
+            <th class="update">Remove</th> -->
         </tr>
         </thead>
 
@@ -125,7 +103,9 @@
             <tr>
                 <td>{{item.id}}</td>
                 <td>{{item.task}}</td>
+                <td>{{item.status}}</td>
 
+<!-- 
                 {% if item.status == "Follow" %}
                     <td><button type="button" class="btn btn-outline-warning btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
                 {%endif%}
@@ -135,7 +115,7 @@
                 
                 <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-id="{{item.id}}" data-name="{{item.task}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
 
-                <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+                <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td> -->
             </tr>
         {% endfor %}
         

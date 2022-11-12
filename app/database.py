@@ -55,6 +55,64 @@ def search_list(text: str) -> None:
     print(todo_list)
     return todo_list
 
+def query_list() -> None:
+    """Reads all tasks listed in the todo table
+
+    Returns:
+        A list of dictionaries
+    """
+
+    conn = db.connect()
+    
+    query = "SELECT UserId, sum FROM (SELECT sum(stock_change*StockPrice) sum, UserId FROM (SELECT ChangeInNumberOfStocks as stock_change, UserId, CompanyID FROM Purchase) a NATURAL JOIN StocksByDate GROUP BY UserId) b ORDER BY sum DESC, USERID LIMIT 15"
+    # query_results = conn.execute('Select * from Company where CompanyName LIKE  "%{}%" OR CompanyID LIkE  "%{}%" ;'.format(text, text)).fetchall()
+    # query = 'Select * from Company where CompanyName LIKE "%%%s%%" OR CompanyID LIkE "%%%s%%"' % (text,text)
+    # print(query)
+    query_results = conn.execute(query).fetchall()
+    print(query_results)
+    # print(query_results)
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "id": result[0],
+            "task": result[1],
+            # "status": result[3]
+        }
+        todo_list.append(item)
+    print(todo_list)
+    return todo_list
+
+def query_list2() -> None:
+    """Reads all tasks listed in the todo table
+
+    Returns:
+        A list of dictionaries
+    """
+
+    conn = db.connect()
+    
+    query = "SELECT c.CompanyName, t.sum_, c.Followers FROM (SELECT SUM(pur.ChangeInPrice) as sum_, pur.CompanyID FROM Purchase pur GROUP BY CompanyID) as t NATURAL JOIN Company c WHERE (t.sum_) > 100000 ORDER BY t.sum_ DESC, c.Followers DESC LIMIT 15"
+    # query_results = conn.execute('Select * from Company where CompanyName LIKE  "%{}%" OR CompanyID LIkE  "%{}%" ;'.format(text, text)).fetchall()
+    # query = 'Select * from Company where CompanyName LIKE "%%%s%%" OR CompanyID LIkE "%%%s%%"' % (text,text)
+    # print(query)
+    query_results = conn.execute(query).fetchall()
+    print(query_results)
+    # print(query_results)
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "id": result[0],
+            "task": result[1],
+            "status": result[2]
+        }
+        todo_list.append(item)
+    print(todo_list)
+    return todo_list
+
+    
+
 def update_task_entry(task_id: str, new_task_id: str, text: str) -> None:
     """Updates task description based on given `task_id`
 
