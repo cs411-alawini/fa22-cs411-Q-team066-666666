@@ -1,8 +1,35 @@
 """ Specifies routing for the application"""
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, redirect, url_for, session
+# from werkzeug.security import check_password_hash
 from app._init_ import app
 from app import database as db_helper
 
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        userid = request.form['userid']
+        password = request.form['password']
+        #user = db_helper.search_user(userid)
+        #if userid != user[0] or password != user[1]:
+        #if check_password_hash(user[1], password):
+        #    session['userid'] = user[0]
+        if userid != 'cs411':
+            error = 'Invalid User ID. Please try again.'
+            return render_template('login.html', error=error)
+        if password == '123456':
+            session['userid'] = userid
+            return redirect(url_for('homepage'))
+        else:
+            error = 'Invalid Password. Please try again.'
+            return render_template('login.html', error=error)
+    return render_template('login.html', error=error)
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.clear()
+    return redirect(url_for('homepage'))
 
 @app.route("/delete/<string:task_id>", methods=['POST'])
 def delete(task_id):

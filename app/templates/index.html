@@ -25,7 +25,29 @@
     
 
     <div class="container">    
-        
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+            {% if user %}
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="nav-link">{{user}}</span>
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="col-md-3 text-end">
+                    <a href="{{ url_for('login') }}">Login</a>
+                </div>
+            {% endif %}
+            
+
+            
+        </header>
         <!-- Button trigger modal -->
         <div style="text-align: right;">
         <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="New Company">Add Company</button>

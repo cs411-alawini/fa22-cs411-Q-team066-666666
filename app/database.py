@@ -55,6 +55,28 @@ def search_list(text: str) -> None:
     print(todo_list)
     return todo_list
 
+def search_user(text: str) -> None:
+    """Reads all tasks listed in the todo table
+
+    Returns:
+        A list of dictionaries
+    """
+    conn = db.connect()
+    query_results = conn.execute('Select * from LogInfo where UserId LIKE %s', (text)).fetchall()
+    # print(query_results)
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "UserId": result[0],
+            "PassWord": result[1],
+            "PhoneNumber": result[2],
+            "Email": result[3]
+        }
+        todo_list.append(item)
+    print(todo_list)
+    return todo_list
+
 def query_list() -> None:
     """Reads all tasks listed in the todo table
 
@@ -185,3 +207,5 @@ def remove_task_by_id(task_id: str) -> None:
     query = 'Delete From Company where CompanyID="{}";'.format(task_id)
     conn.execute(query)
     conn.close()
+
+# def userId(task_id: str)
