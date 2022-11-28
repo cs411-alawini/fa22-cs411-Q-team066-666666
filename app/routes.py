@@ -11,17 +11,20 @@ def login():
     if request.method == 'POST':
         userid = request.form['userid']
         password = request.form['password']
-        #user = db_helper.search_user(userid)
+        user = db_helper.search_user()
         #if userid != user[0] or password != user[1]:
         #if check_password_hash(user[1], password):
         #    session['userid'] = user[0]
-        if userid != 'cs411':
+        if not userid in user.keys():
             error = 'Invalid User ID. Please try again.'
             return render_template('login.html', error=error)
-        if password == '123456':
+        if password == user[userid]:
             session['userid'] = userid
-            return redirect(url_for('homepage'))
+            return redirect(url_for('user_homepage',x=userid))
+            #return redirect(url_for('homepage'))
         else:
+            #print(user[userid])
+            #print(password)
             error = 'Invalid Password. Please try again.'
             return render_template('login.html', error=error)
     return render_template('login.html', error=error)
@@ -141,4 +144,11 @@ def homepage():
     items = db_helper.fetch_todo()
     # print(items)
     # print(1)
+    return render_template("index.html", items=items)
+
+@app.route("/user_homepage")
+def user_homepage():
+    """ returns rendered homepage """
+    y=request.args.get('x')
+    items = db_helper.fetch_user_list(y)
     return render_template("index.html", items=items)
