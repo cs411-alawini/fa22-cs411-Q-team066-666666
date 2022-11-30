@@ -52,12 +52,17 @@ def update(task_id):
     """ recieved post requests for entry updates """
 
     data = request.get_json()
-
-
+    userid=session.get("userid")
+    
     try:
         if "status" in data:
-            db_helper.update_status_entry(task_id, data["status"])
+            if userid:
+                db_helper.update_LoginInfo_database(userid,data["status"],task_id)
+                return redirect(url_for('user_homepage',x=userid))
+            else:
+                db_helper.update_status_entry(task_id, data["status"])
             result = {'success': True, 'response': 'Status Updated'}
+            
 
         elif "id" in data:
             db_helper.update_task_entry(task_id, data["id"], data["name"])
@@ -146,7 +151,7 @@ def homepage():
     # print(1)
     return render_template("index.html", items=items)
 
-@app.route("/user_homepage")
+@app.route("/user_homepage",methods=['GET','POST'])
 def user_homepage():
     """ returns rendered homepage """
     y=request.args.get('x')

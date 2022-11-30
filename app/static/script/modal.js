@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // example: https://getbootstrap.com/docs/4.2/components/modal/
+    // example: https://getbootstrap.com/do/4.2/components/modal/
     // show modal
     $('#task-modal').on('show.bs.modal', function (event) {
         const button = $(event.relatedTarget) // Button that triggered the modal

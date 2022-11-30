@@ -34,18 +34,18 @@ def fetch_user_list(userid: str):
         follow_list.append(f[0])
     todo_list = []
     for result in alllist:
-        if not result[1]+'\r' in follow_list:
+        if (result[1]+'\r' in follow_list) or (result[1] in follow_list):
             item = {
                 "id": result[1],
                 "task": result[2],
-                "status": "Follow"
+                "status": "Unfollow"
             }
             todo_list.append(item)
         else:
             item = {
                 "id": result[1],
                 "task": result[2],
-                "status": "Unfollow"
+                "status": "Follow"
             }
             todo_list.append(item)
 
@@ -181,12 +181,20 @@ def update_status_entry(task_id: str, text: str) -> None:
     Returns:
         None
     """
-
     conn = db.connect()
     query = 'Update Company set Status = "{}" where CompanyID = "{}";'.format(text, task_id)
     conn.execute(query)
     conn.close()
 
+
+def update_LoginInfo_database(userid: int,text: str,task_id:str):
+    conn = db.connect()
+    if text=="Follow":
+        query = 'DELETE FROM CompaniesFollowed WHERE UserId="{}" AND CompanyId="{}";'.format(userid, task_id)
+    elif text=="Unfollow":
+        query = 'INSERT INTO CompaniesFollowed VALUES ("{}","{}");'.format(userid, task_id)
+    conn.execute(query)
+    conn.close()
 
 
 def insert_new_task(id: str, name: str) ->  str:
