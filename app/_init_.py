@@ -1,7 +1,7 @@
 """Setup at app startup"""
 import os
 import sqlalchemy
-from flask import Flask
+from flask import Flask, session, g
 from yaml import load, Loader
 
 
@@ -45,6 +45,22 @@ def init_connection_engine():
 
 
 app = Flask(__name__)
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
+
+@app.before_request
+def my_before_request():
+    userid = session.get("userid")
+    if userid:
+        #user = db_helper.search_user(userid)
+        setattr(g, "user", userid)
+    else:
+        setattr(g, "user", None)
+
+@app.context_processor
+def my_context_processor():
+    return {"user": g.user}
+
 db = init_connection_engine()
 
 # conn = db.connect()

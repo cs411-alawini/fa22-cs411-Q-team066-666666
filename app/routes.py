@@ -1,8 +1,38 @@
 """ Specifies routing for the application"""
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, redirect, url_for, session
+# from werkzeug.security import check_password_hash
 from app._init_ import app
 from app import database as db_helper
 
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        userid = request.form['userid']
+        password = request.form['password']
+        user = db_helper.search_user()
+        #if userid != user[0] or password != user[1]:
+        #if check_password_hash(user[1], password):
+        #    session['userid'] = user[0]
+        if not userid in user.keys():
+            error = 'Invalid User ID. Please try again.'
+            return render_template('login.html', error=error)
+        if password == user[userid]:
+            session['userid'] = userid
+            return redirect(url_for('user_homepage',x=userid))
+            #return redirect(url_for('homepage'))
+        else:
+            #print(user[userid])
+            #print(password)
+            error = 'Invalid Password. Please try again.'
+            return render_template('login.html', error=error)
+    return render_template('login.html', error=error)
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.clear()
+    return redirect(url_for('homepage'))
 
 @app.route("/delete/<string:task_id>", methods=['POST'])
 def delete(task_id):
@@ -22,12 +52,17 @@ def update(task_id):
     """ recieved post requests for entry updates """
 
     data = request.get_json()
-
-
+    userid=session.get("userid")
+    
     try:
         if "status" in data:
-            db_helper.update_status_entry(task_id, data["status"])
+            if userid:
+                db_helper.update_LoginInfo_database(userid,data["status"],task_id)
+                return redirect(url_for('user_homepage',x=userid))
+            else:
+                db_helper.update_status_entry(task_id, data["status"])
             result = {'success': True, 'response': 'Status Updated'}
+            
 
         elif "id" in data:
             db_helper.update_task_entry(task_id, data["id"], data["name"])
@@ -114,4 +149,11 @@ def homepage():
     items = db_helper.fetch_todo()
     # print(items)
     # print(1)
+    return render_template("index.html", items=items)
+
+@app.route("/user_homepage",methods=['GET','POST'])
+def user_homepage():
+    """ returns rendered homepage """
+    y=request.args.get('x')
+    items = db_helper.fetch_user_list(y)
     return render_template("index.html", items=items)

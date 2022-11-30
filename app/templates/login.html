@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Demo: TODO</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/signin.css') }}">
+
+  </head>
+  <body class="text-center">
+    
+<main class="form-signin w-100 m-auto">
+  <form action="" method="post">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="User ID" name="userid" value="{{
+        request.form.userid }}">
+      <label for="floatingInput">User ID</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" value="{{
+        request.form.password }}">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" value="Login">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+  </form>
+  {% if error %}
+    <p class="error"><strong>Error:</strong> {{ error }}
+    {% endif %}
+</main>
+    
+    
+  </body>
+</html>
+
+
+
+    <!-- </head>
+
+    <body>
+        <div class="container">
+          <h1>Please login</h1>
+          <br>
+          <form action="" method="post">
+            <input type="text" placeholder="Userid" name="userid" value="{{
+              request.form.userid }}">
+             <input type="password" placeholder="Password" name="password" value="{{
+              request.form.password }}">
+            <input class="btn btn-primary btn-block" type="submit" value="Login">
+          </form>
+          {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}
+          {% endif %}
+        </div>
+    </body>
+</html> -->
