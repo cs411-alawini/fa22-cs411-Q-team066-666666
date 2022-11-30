@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Demo: TODO</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/custom.css') }}">
+
+    </head>
+
+    <body>
+
+    <main role="main" class="container extra-bottom">
+      <h1 class="mt-5">Company Stock App</h1>
+      
+      <p><mark>Calling Stored Procedure: A Table outputing the Companies with their weighted growth rate and their emotion word with the heighest frequency </mark></p>
+      <div style="text-align: left;">
+        <button id="home" type="button" class="btn btn-primary">Back</button>
+        </div>
+    </main>
+    
+
+    
+
+    <!--Todo Table-->
+    <div class="container table-responsive">          
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="task-id">CompanyID</th>
+            <th class="task">CompanyEmotion</th>
+            <th class="status">EmotionFreq</th>
+            <th class="update">WeightedGR</th>
+            <!--  
+            <th class="update">Remove</th> -->
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.task}}</td>
+                <td>{{item.status}}</td>
+                <td>{{item.up}}</td>
+<!-- 
+                {% if item.status == "Follow" %}
+                    <td><button type="button" class="btn btn-outline-warning btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
+                {%endif%}
+                {% if item.status == "Unfollow" %}
+                    <td><button type="button" class="btn btn-outline-secondary btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
+                {%endif%}
+                
+                <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#task-modal" data-source="{{item.id}}" data-id="{{item.id}}" data-name="{{item.task}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
+
+                <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td> -->
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+    </div>
+
+
+
+    <footer class="footer">
+      <div class="container">
+            <p class="text-muted"><small>App developed for CS411 UIUC by @tcheng10</small></p>
+      </div>
+    </footer>
+  </body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/modal.js') }}"></script>
+
+</html>
