@@ -141,6 +141,16 @@ def query_page2():
   
     return render_template("query2.html", items=comp)
 
+@app.route("/procedure_page")
+def procedure_():
+    """ returns rendered procedure_page """
+
+    comp = db_helper.procedure()
+    print(comp)
+
+  
+    return render_template("procedure.html", items=comp)
+
 
 @app.route("/")
 def homepage():

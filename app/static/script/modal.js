@@ -52,6 +52,14 @@ $(document).ready(function () {
         location.replace('/query_page2')
         
     });
+    $('#submit-procedure').click(function () {
+        // const tID = $('#comp-form-display').attr('taskID');
+        // console.log($('#query-modal').find('.form-control').val())
+        location.replace('/procedure_page')
+        
+    });
+
+
 
     $('#submit-task').click(function () {
         const tID = $('#task-form-display').attr('taskID');

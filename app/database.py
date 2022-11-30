@@ -148,6 +148,32 @@ def query_list2() -> None:
     print(todo_list)
     return todo_list
 
+def procedure() -> None:
+    """Reads all tasks listed in the todo table
+
+    Returns:
+        A list of dictionaries
+    """
+
+    conn = db.connect()
+    
+    query = "Call updateprediction"
+    # query_results = conn.execute('Select * from Company where CompanyName LIKE  "%{}%" OR CompanyID LIkE  "%{}%" ;'.format(text, text)).fetchall()
+    # query = 'Select * from Company where CompanyName LIKE "%%%s%%" OR CompanyID LIkE "%%%s%%"' % (text,text)
+    # print(query)
+    query_results = conn.execute(query).fetchall()
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "id": result[0],
+            "task": result[1],
+            "status": result[2],
+            "up": result[3]
+        }
+        todo_list.append(item)
+    # print(todo_list)
+    return todo_list
     
 
 def update_task_entry(task_id: str, new_task_id: str, text: str) -> None:
