@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>APP NAME | Company Rank</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+
+
+    </head>
+
+    <body>
+        <header class="p-3 mb-3 border-bottom">
+            <div class="container">
+              <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                  <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+                </a>
+        
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                  <li><a href="#" class="nav-link px-2 link-dark">My Favorite</a></li>
+                  <li><a href="#" class="nav-link px-2 link--secondary">Companies Rank</a></li>
+                  <li><a href="#" class="nav-link px-2 link-dark">User Rank</a></li>
+                </ul>
+        
+                <div class="dropdown text-end">
+                  <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle user-name" data-bs-toggle="dropdown" aria-expanded="false">
+                    User Name
+                  </a>
+                  <ul class="dropdown-menu text-small">
+                    <li><a class="dropdown-item" href="#">Account</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </header>
+    <main role="main" class="container extra-bottom">
+      <h1 class="mt-5">Company Rank</h1>
+      <p><mark>Top stocks from emotion-based prediction</mark></p>
+    </main>
+    
+    
+    <div class="container">    
+        
+        <!-- Button trigger modal -->
+        <div style="text-align: right;">
+        <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#search-modal" data-source="New Task">Search Company</button>
+        </div>
+
+        <div class="modal fade" id="search-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Label">Search Company</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+    
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="comp-form-display">Company</span>
+                        <input type="text" class="form-control" placeholder="Company ID or Company Name" aria-label="task-name" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="submit-search" type="button" class="btn btn-primary">Search Company</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Todo Table-->
+    <div class="container table-responsive">          
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="company-id">Company ID</th>
+            <th class="company-name">Company Name</th>
+            <th class="price">Price</th>
+            <th class="growth-rate">Predicted Growth Rate</th>
+            <th class="status">Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for company in companies %}
+            <tr>
+                <td>{{company.company-id}}</td>
+                <td>{{item.company-name}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.growth-rate}}</td> <!--need to change for coloring-->
+
+                {% if item.status == "Follow" %}
+                    <td><button type="button" class="btn btn-outline-warning btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
+                {%endif%}
+                {% if item.status == "Unfollow" %}
+                    <td><button type="button" class="btn btn-outline-secondary btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
+                {%endif%}
+                
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+    </div>
+
+
+
+    <footer class="footer">
+      <div class="container">
+            <p class="text-muted"><small>Stock Prediction App</small></p>
+      </div>
+    </footer>
+  </body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/modal.js') }}"></script>
+
+</html>

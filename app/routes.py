@@ -1,5 +1,5 @@
 """ Specifies routing for the application"""
-from flask import render_template, request, jsonify, redirect, url_for, session
+from flask import render_template, request, jsonify, redirect, url_for, session, g
 # from werkzeug.security import check_password_hash
 from app._init_ import app
 from app import database as db_helper
@@ -20,11 +20,8 @@ def login():
             return render_template('login.html', error=error)
         if password == user[userid]:
             session['userid'] = userid
-            return redirect(url_for('user_homepage',x=userid))
-            #return redirect(url_for('homepage'))
+            return redirect(url_for('homepage'))
         else:
-            #print(user[userid])
-            #print(password)
             error = 'Invalid Password. Please try again.'
             return render_template('login.html', error=error)
     return render_template('login.html', error=error)
@@ -33,6 +30,10 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('homepage'))
+
+@app.route('/account', methods=['GET', 'POST'])
+def account():
+    return render_template('account.html')
 
 @app.route("/delete/<string:task_id>", methods=['POST'])
 def delete(task_id):
@@ -88,32 +89,6 @@ def create():
     return jsonify(result)
 
 
-# @app.route("/search", methods=['POST','GET'])
-# def search_comp():
-#     """ returns rendered homepage """
-#     comp = db_helper.search_list('AAP')
-#     if request.method == 'POST':
-#         data = request.get_json()
-#         # print(data['text'])
-#         comp = db_helper.search_list(data['text'])
-#         # print(comp)
-#     # if request.method == 'GET':
-#     # return render_template("search.html", items=comp)
-#     result = {'success': True, 'response': 'Done'}
-#     return jsonify(comp)
-
-# @app.route("/search_page/<string:comp_id>")
-# def search_page(comp_id):
-#     """ returns rendered homepage """
-#     # req = request.get_json()
-#     # print(req)
-#     # print(comp_id)
-#     data = eval(comp_id)
-#     # print(data)
-#     # items = db_helper.fetch_todo()
-#     # print(items)
-#     return render_template("search.html", items=data)
-
 @app.route("/search_page/<string:comp_id>")
 def search_page(comp_id):
     """ returns rendered homepage """
@@ -155,15 +130,43 @@ def procedure_():
 @app.route("/")
 def homepage():
     """ returns rendered homepage """
-
-    items = db_helper.fetch_todo()
+    if g.user != None:
+        items = db_helper.fetch_user_list(g.user)
+    else:
+        items = db_helper.fetch_todo()
     # print(items)
     # print(1)
     return render_template("index.html", items=items)
 
-@app.route("/user_homepage",methods=['GET','POST'])
-def user_homepage():
-    """ returns rendered homepage """
-    y=request.args.get('x')
-    items = db_helper.fetch_user_list(y)
-    return render_template("index.html", items=items)
+# @app.route("/user_homepage",methods=['GET','POST'])
+# def user_homepage():
+#     """ returns rendered homepage """
+#     y=request.args.get('x')
+#     items = db_helper.fetch_user_list(y)
+#     return render_template("index.html", items=items)
+
+# @app.route("/search", methods=['POST','GET'])
+# def search_comp():
+#     """ returns rendered homepage """
+#     comp = db_helper.search_list('AAP')
+#     if request.method == 'POST':
+#         data = request.get_json()
+#         # print(data['text'])
+#         comp = db_helper.search_list(data['text'])
+#         # print(comp)
+#     # if request.method == 'GET':
+#     # return render_template("search.html", items=comp)
+#     result = {'success': True, 'response': 'Done'}
+#     return jsonify(comp)
+
+# @app.route("/search_page/<string:comp_id>")
+# def search_page(comp_id):
+#     """ returns rendered homepage """
+#     # req = request.get_json()
+#     # print(req)
+#     # print(comp_id)
+#     data = eval(comp_id)
+#     # print(data)
+#     # items = db_helper.fetch_todo()
+#     # print(items)
+#     return render_template("search.html", items=data)
