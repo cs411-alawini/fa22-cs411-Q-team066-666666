@@ -35,7 +35,7 @@
                         <span class="nav-link">{{user}}</span>
                     </a>
                     <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('account') }}">Profile</a></li>
                     <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
                     </ul>
                 </div>
