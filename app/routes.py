@@ -31,9 +31,10 @@ def logout():
     session.clear()
     return redirect(url_for('homepage'))
 
-@app.route('/account', methods=['GET', 'POST'])
-def account():
-    return render_template('account.html')
+# @app.route('/account', methods=['GET', 'POST'])
+# def account():
+
+#     return render_template('account.html')
 
 @app.route("/delete/<string:task_id>", methods=['POST'])
 def delete(task_id):
@@ -130,12 +131,12 @@ def procedure_():
 @app.route("/")
 def homepage():
     """ returns rendered homepage """
+    # items=db_helper.fetch_todo()
     if g.user != None:
         items = db_helper.fetch_user_list(g.user)
     else:
         items = db_helper.fetch_todo()
-    # print(items)
-    # print(1)
+
     return render_template("index.html", items=items)
 
 # @app.route("/user_homepage",methods=['GET','POST'])
