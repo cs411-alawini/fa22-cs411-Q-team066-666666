@@ -9,12 +9,6 @@ from app._init_ import db
 #     return todo_list
 
 def fetch_todo() -> dict:
-    """Reads all tasks listed in the todo table
-
-    Returns:
-        A list of dictionaries
-    """
-
     conn = db.connect()
     query_results = conn.execute("Select * from Company;").fetchall()
     conn.close()
@@ -26,6 +20,34 @@ def fetch_todo() -> dict:
             "status": result[3]
         }
         todo_list.append(item)
+
+    return todo_list
+
+def fetch_user_list(userid: str):
+    conn = db.connect()
+    alllist=conn.execute("Select * from Company;").fetchall()
+    query='Select CompanyId from CompaniesFollowed Where UserId="{}";'.format(userid)
+    follow_results = conn.execute(query).fetchall()
+    conn.close()
+    follow_list=[]
+    for f in follow_results:
+        follow_list.append(f[0])
+    todo_list = []
+    for result in alllist:
+        if (result[1]+'\r' in follow_list) or (result[1] in follow_list):
+            item = {
+                "id": result[1],
+                "task": result[2],
+                "status": "Unfollow"
+            }
+            todo_list.append(item)
+        else:
+            item = {
+                "id": result[1],
+                "task": result[2],
+                "status": "Follow"
+            }
+            todo_list.append(item)
 
     return todo_list
 
@@ -55,27 +77,20 @@ def search_list(text: str) -> None:
     print(todo_list)
     return todo_list
 
-def search_user(text: str) -> None:
+def search_user():
     """Reads all tasks listed in the todo table
 
     Returns:
         A list of dictionaries
     """
     conn = db.connect()
-    query_results = conn.execute('Select * from LogInfo where UserId LIKE %s', (text)).fetchall()
-    # print(query_results)
+    query_results = conn.execute('Select * from LoginInfo;').fetchall()
+    #print(query_results)
     conn.close()
-    todo_list = []
+    user_list = {}
     for result in query_results:
-        item = {
-            "UserId": result[0],
-            "PassWord": result[1],
-            "PhoneNumber": result[2],
-            "Email": result[3]
-        }
-        todo_list.append(item)
-    print(todo_list)
-    return todo_list
+        user_list[result[0]]=result[1]
+    return user_list
 
 def query_list() -> None:
     """Reads all tasks listed in the todo table
@@ -133,6 +148,32 @@ def query_list2() -> None:
     print(todo_list)
     return todo_list
 
+def procedure() -> None:
+    """Reads all tasks listed in the todo table
+
+    Returns:
+        A list of dictionaries
+    """
+
+    conn = db.connect()
+    
+    query = "Call updateprediction"
+    # query_results = conn.execute('Select * from Company where CompanyName LIKE  "%{}%" OR CompanyID LIkE  "%{}%" ;'.format(text, text)).fetchall()
+    # query = 'Select * from Company where CompanyName LIKE "%%%s%%" OR CompanyID LIkE "%%%s%%"' % (text,text)
+    # print(query)
+    query_results = conn.execute(query).fetchall()
+    conn.close()
+    todo_list = []
+    for result in query_results:
+        item = {
+            "id": result[0],
+            "task": result[1],
+            "status": result[2],
+            "up": result[3]
+        }
+        todo_list.append(item)
+    # print(todo_list)
+    return todo_list
     
 
 def update_task_entry(task_id: str, new_task_id: str, text: str) -> None:
@@ -166,12 +207,20 @@ def update_status_entry(task_id: str, text: str) -> None:
     Returns:
         None
     """
-
     conn = db.connect()
     query = 'Update Company set Status = "{}" where CompanyID = "{}";'.format(text, task_id)
     conn.execute(query)
     conn.close()
 
+
+def update_LoginInfo_database(userid: int,text: str,task_id:str):
+    conn = db.connect()
+    if text=="Follow":
+        query = 'DELETE FROM CompaniesFollowed WHERE UserId="{}" AND CompanyId="{}";'.format(userid, task_id)
+    elif text=="Unfollow":
+        query = 'INSERT INTO CompaniesFollowed VALUES ("{}","{}");'.format(userid, task_id)
+    conn.execute(query)
+    conn.close()
 
 
 def insert_new_task(id: str, name: str) ->  str:
@@ -186,15 +235,17 @@ def insert_new_task(id: str, name: str) ->  str:
 
     conn = db.connect()
 
-    last_id_q = conn.execute("Select LAST_INSERT_ID();")
-    last_id_q = [x for x in last_id_q]
-    last_id = last_id_q[0][0]
+    #last_id_q = conn.execute("Select LAST_INSERT_ID();")
+    #last_id_q = [x for x in last_id_q]
+    last_id_2 = conn.execute("Select max(id_num) from Company;").fetchall()
+    #last_id = last_id_q[0][0]
     query = 'Insert Into Company (id_num, CompanyID, CompanyName, Status, Followers, CurrentStockPrice, CurrentGrowthRate, PredictedStockPrice, PredictedGrowthRate) VALUES ({}, "{}", "{}", "Follow", 0, 0, 0, 0, 0);'.format(
-        int(last_id) + 1, id, name)
+        int(last_id_2[0][0]) + 1, id, name)
 
     conn.execute(query)
-    query_results = conn.execute("Select LAST_INSERT_ID();")
-    query_results = [x for x in query_results]
+    query = conn.execute("Select * from Company ORDER BY CompanyId;")
+    #query_results = conn.execute("Select LAST_INSERT_ID();")
+    #query_results = [x for x in query_results]
     conn.close()
 
     return id

@@ -35,7 +35,7 @@
                         <span class="nav-link">{{user}}</span>
                     </a>
                     <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
                     </ul>
                 </div>
@@ -56,6 +56,10 @@
         <div style="text-align: right;">
         <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#search-modal" data-source="New Task">Search Company</button>
         </div>
+
+        <div style="text-align: left;">
+            <button id="submit-procedure", type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#procedure-modal" data-source="New Task">Call Procedure</button>
+            </div>
 
         <div style="text-align: left;">
             <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#query-modal" data-source="New Task">Query</button>
