@@ -128,4 +128,12 @@ $(document).ready(function () {
         });
     });
 
+    $('.callrefresh').click(function () {
+        // console.log("rrrrrrrr");
+        $.ajax({
+            type:'POST',
+            url:'/refresh/'
+        });
+    });
+
 });

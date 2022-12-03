@@ -139,6 +139,12 @@ def homepage():
 
     return render_template("index.html", items=items)
 
+@app.route("/refresh/", methods=['POST'])
+def refresh():
+    db_helper.refresh()
+    print("Successfully refresh")
+    return redirect(url_for('homepage'))
+
 # @app.route("/user_homepage",methods=['GET','POST'])
 # def user_homepage():
 #     """ returns rendered homepage """
