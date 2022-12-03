@@ -144,6 +144,7 @@
         <tr>
             <th class="task-id">CompanyId</th>
             <th class="task">Company Name</th>
+            <th class="prediction">Predicted Growth Rate</th>
             <th class="status">Status</th>
             <th class="update">Edit</th>
             <th class="update">Remove</th>
@@ -155,7 +156,7 @@
             <tr>
                 <td>{{item.id}}</td>
                 <td>{{item.task}}</td>
-
+                <td>{{item.prediction}}</td>
                 {% if item.status == "Follow" %}
                     <td><button type="button" class="btn btn-outline-warning btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
                 {%endif%}

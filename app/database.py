@@ -26,7 +26,8 @@ def fetch_todo() -> dict:
         item = {
             "id": result[1],
             "task": result[2],
-            "status": result[3]
+            "status": result[3],
+            "prediction": result[8]
         }
         todo_list.append(item)
 
@@ -47,14 +48,16 @@ def fetch_user_list(userid: str):
             item = {
                 "id": result[1],
                 "task": result[2],
-                "status": "Unfollow"
+                "status": "Unfollow",
+                "prediction": result[8]
             }
             todo_list.append(item)
         else:
             item = {
                 "id": result[1],
                 "task": result[2],
-                "status": "Follow"
+                "status": "Follow",
+                "prediction": result[8]
             }
             todo_list.append(item)
 
@@ -286,30 +289,34 @@ def smart_comp_name(comp_name):
 
 def refresh():
     conn = db.connect()
-    query = 'select * from Company ;'
+    query = 'select CompanyID, CompanyName from Company ;'
     result = conn.execute(query).fetchall()
     result = np.array(result)
     conn.close()
 
     # set up
-    companies = pd.DataFrame(result) #import full data as dataframe
-    companies = companies.sample(n=10, random_state=1) #sampling
+    companies = pd.DataFrame(result,columns=['CompanyID', 'CompanyName']) #import full data as dataframe
+    companies = companies.sample(n=30, random_state=3) #sampling
 
     pytrends = TrendReq(hl='en-US', tz=360, timeout=(10,25), retries=2, backoff_factor=0.1, requests_args={'verify':False})
 
-    # emotion_list = ['accessible', 'pleasing', 'candid', 'agreeable', 'balanced']
-    emotion_list = ['valuable', 'successful', 'candid', 'organic', 'steadfast', 'talented', 'unique', 'interesting', 'functional', 'educated', 
-                'ready', 'credible', 'substantial', 'workable', 'perfect', 'possible', 'supreme', 'focused', 'maintainable', 'threatening']
+    emotion_list = ['accessible', 'pleasing', 'candid', 'agreeable', 'balanced']
+    # emotion_list = ['ready', 'credible', 'substantial', 'workable', 'perfect', 'possible', 'supreme', 'focused', 'maintainable', 'threatening']
 
     train_columns = ['CompanyID', 'Price'] + emotion_list + ['GrowthRate']
     train_set = pd.DataFrame([], columns=train_columns)
     predict_columns = ['CompanyID', 'Price'] + emotion_list
     predict_set = pd.DataFrame([], columns=predict_columns)
 
+    # test = np.repeat('test', 20)
+    # pytrends.build_payload(list(test), cat=0, timeframe="now 7-d", geo='US')
+    # print("test suc")
+
     # data making
     for index, company in companies.iterrows():
         smart_name = smart_comp_name(company['CompanyName'])
         search_list = ['"' + smart_name +  '" + "' + e + '"' for e in emotion_list]
+        print(search_list)
         pytrends.build_payload(search_list, cat=0, timeframe="now 7-d", geo='US')
         trend = pytrends.interest_over_time()
         trend = trend.drop(['isPartial'], axis=1)
