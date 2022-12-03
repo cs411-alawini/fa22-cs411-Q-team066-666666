@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    // example: https://getbootstrap.com/docs/4.2/components/modal/
+    // example: https://getbootstrap.com/do/4.2/components/modal/
     // show modal
     $('#task-modal').on('show.bs.modal', function (event) {
         const button = $(event.relatedTarget) // Button that triggered the modal
@@ -52,6 +52,14 @@ $(document).ready(function () {
         location.replace('/query_page2')
         
     });
+    $('#submit-procedure').click(function () {
+        // const tID = $('#comp-form-display').attr('taskID');
+        // console.log($('#query-modal').find('.form-control').val())
+        location.replace('/procedure_page')
+        
+    });
+
+
 
     $('#submit-task').click(function () {
         const tID = $('#task-form-display').attr('taskID');
@@ -117,6 +125,14 @@ $(document).ready(function () {
             error: function () {
                 console.log('Error');
             }
+        });
+    });
+
+    $('.callrefresh').click(function () {
+        // console.log("rrrrrrrr");
+        $.ajax({
+            type:'POST',
+            url:'/refresh/'
         });
     });
 
