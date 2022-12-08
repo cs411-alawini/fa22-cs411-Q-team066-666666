@@ -1,2 +1,2 @@
-The demo video can be reached using the link below:
+The demo video can be reached using this link: 
 https://youtu.be/jCn6s4d9O2Y
