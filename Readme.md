@@ -1,16 +1,12 @@
 # Q-Team066-666666
-This is a template for CS411 project repository. Please make sure that your title follows the convention: Q-[TeamID]-[YourTeamName]. All TeamID should have a three digit coding (i.e. if you are team 20, you should have `team020` as your ID.). You should also make sure that your url for this repository is [fa22-cs411-Q-team000-teamname.git] so TAs can correctly clone your repository and keep them up-to-date.
 
-Once you setup your project, please remember to submit your team formation to the team form.
 
-## Permission
-You should make sure you allow TAs to access your repository. You can add TA(s) as a collaborator to your repository.
+Title:
+Stock Prediction with Emotions
 
-## Preparing for your release
-Eash submission should be in it's own [release](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases). Release are specific freezes to your repository. You should submit your commit hash on canvas or google sheet. When tagging your stage, please use the tag `stage.x` where x is the number to represent the stage.
+Summary:
+Our team aims to design a website that provides both the prediction for the stock market and the relationship between companies and people’s sentiments towards them. Users can register and receive updates about the stock or companies they follow.
 
-## Keeping things up-to-date
-You should make sure you keep your project root files up-to-date. Information for each file/folders are explained.
+Description:
+We will create a website that predicts possible trends in the stock market for users based on the past trend of the stock market. Moreover, we are also interested in seeing the relationship between the change in a company’s stock market and people’s most recent sentiments towards the company. Many website applications have functionalities such as predictions on future trends, yet we are adding one more fun functionality which is the relationship between stock trends and people’s sentiments. Hence we will focus on building these two main functions on our website. Furthermore, users can register on our website and subscribe to the updates of the companies or stocks they follow.
 
-## Code Contribution
-Individual code contribution will be used to evaluate individual contribution to the project.
