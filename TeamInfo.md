@@ -21,7 +21,7 @@ Company| TeamName    |         666666         |
 | ----------- | ---------------------- |
 |  Title      | Stock Prediction with Emotions|
 | System URL  |      link_to_system    |
-| Video Link  |      link_to_video     |
+| Video Link  |      https://youtu.be/jCn6s4d9O2Y     |
 
 ## Project Summary
 
